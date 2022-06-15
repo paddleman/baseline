@@ -95,6 +95,19 @@ defmodule Baseline.Accounts do
     User.registration_changeset(user, attrs, hash_password: false)
   end
 
+  # added
+  def  change_user(user, attrs \\  %{}) do
+    User.registration_changeset(user, attrs,  register_user:  false)
+  end
+
+  def update_user(user, attrs) do
+    user
+    |> User.registration_changeset(attrs, register_user: false)
+    |> Repo.update()
+  end
+
+
+
   def log_out_user(token) do
     user = get_user_by_session_token(token)
     # Delete all user tokens
