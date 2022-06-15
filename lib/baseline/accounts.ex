@@ -220,6 +220,14 @@ defmodule Baseline.Accounts do
     User.password_changeset(user, attrs, hash_password: false)
   end
 
+  def update_user_password(user, password, attrs) do
+    user
+    |> User.password_changeset(attrs)
+    |> User.validate_current_password(password)
+    |> Repo.update()
+  end
+
+
   @doc """
   Updates the user password.
 

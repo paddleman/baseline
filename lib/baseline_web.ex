@@ -123,6 +123,10 @@ defmodule BaselineWeb do
 
       import BaselineWeb.ErrorHelpers
       import BaselineWeb.Gettext
+
+      import BaselineWeb.RenderHelpers
+
+
       alias BaselineWeb.Router.Helpers, as: Routes
     end
   end

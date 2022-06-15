@@ -55,7 +55,9 @@ defmodule Baseline.MixProject do
 
       {:tailwind, "~> 0.1.6"},
 
-      {:petal_components, "~> 0.16.0"}
+      {:petal_components, "~> 0.16.0"},
+
+      {:mogrify, "~> 0.9.1"}
     ]
   end
 
