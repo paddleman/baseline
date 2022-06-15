@@ -8,6 +8,8 @@ defmodule Baseline.Accounts do
 
   alias Baseline.Accounts.{User, UserToken, UserNotifier}
 
+  alias BaselineWeb.UserAuth
+
   ## Database getters
 
   @doc """
@@ -92,6 +94,24 @@ defmodule Baseline.Accounts do
   def change_user_registration(%User{} = user, attrs \\ %{}) do
     User.registration_changeset(user, attrs, hash_password: false)
   end
+
+  def log_out_user(token) do
+    user = get_user_by_session_token(token)
+    # Delete all user tokens
+    Repo.delete_all(UserToken.user_and_contexts_query(user, :all))
+
+    # Broadcast to all liveviews to immediately disconnect the user
+    BaselineWeb.Endpoint.broadcast_from(
+      self(),
+      UserAuth.pubsub_topic(),
+      "logout_user",
+      %{
+        user: user
+      }
+    )
+  end
+
+
 
   ## Settings
 

@@ -12,6 +12,13 @@ defmodule BaselineWeb.UserAuth do
   @remember_me_cookie "_baseline_web_user_remember_me"
   @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
 
+  @pubsub_topic "user_updates"
+
+  def pubsub_topic() do
+    @pubsub_topic
+  end
+
+
   @doc """
   Logs the user in.
 
@@ -72,7 +79,7 @@ defmodule BaselineWeb.UserAuth do
   """
   def log_out_user(conn) do
     user_token = get_session(conn, :user_token)
-    user_token && Accounts.delete_session_token(user_token)
+    Accounts.log_out_user(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
       BaselineWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})

@@ -48,8 +48,33 @@ defmodule BaselineWeb do
         layout: {BaselineWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
+      import BaselineWeb.LiveHelpers
+
+      alias Baseline.Accounts.User
+
+      @impl true
+      def handle_info(%{event: "logout_user", payload: %{user: %User{id: id}}}, socket) do
+        with %User{id: ^id} <- socket.assigns.current_user do
+          {:noreply,
+            socket
+            |> redirect(to: "/")
+            |> put_flash(:info, "Logged out successfully.")}
+        else
+          _any -> {:noreply, socket}
+        end
+      end
+
+      @impl true
+      def handle_params(_unsigned_params, uri, socket) do
+        {:noreply,
+          socket
+          |> assign(current_uri_path: URI.parse(uri).path)}
+      end
+
     end
+
   end
+
 
   def live_component do
     quote do

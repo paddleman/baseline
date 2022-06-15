@@ -1,4 +1,13 @@
-<.container class="my-10">
+<.container class="my-3">
+<%= if @current_user do %>
+  <.live_component module={BaselineWeb.HeaderNavComponent} id="header_nav" current_user={@current_user} />
+<% else %>
+  <%= if @current_uri_path !== "/" do %>
+    <.live_component  module={BaselineWeb.HeaderNavComponent} id="header_nav" current_user={@current_user} />
+  <% end %>
+<% end %>
+
+
   <.alert
     color="info"
     class="mb-5"
