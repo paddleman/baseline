@@ -1,0 +1,135 @@
+/* See the Tailwind configuration guide for advanced usage
+   https://tailwindcss.com/docs/configuration */
+
+@import "tailwindcss" source(none);
+@source "../css";
+@source "../js";
+@source "../../lib/baseline_web";
+
+/* A Tailwind plugin that makes "hero-#{ICON}" classes available.
+   The heroicons installation itself is managed by your mix.exs */
+@plugin "../vendor/heroicons";
+
+/* daisyUI Tailwind Plugin. You can update this file by fetching the latest version with:
+   curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.js
+   Make sure to look at the daisyUI changelog: https://daisyui.com/docs/changelog/ */
+@plugin "../vendor/daisyui" {
+  themes: false;
+}
+
+/* daisyUI theme plugin. You can update this file by fetching the latest version with:
+  curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.js
+  We ship with two themes, a light one inspired on Phoenix colors and a dark one inspired
+  on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
+
+/* Custom baseline dark theme with McElhanney colors */
+@plugin "../vendor/daisyui-theme" {
+  name: "baseline-dark";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-base-200: oklch(33.97% 0.073 195.84);
+  /* mc-dark-teal */
+  --color-base-300: oklch(56.38% 0.115 181.73);
+  /* mc-med-teal */
+  --color-base-content: oklch(96.47% 0.004 106.42);
+  /* zinc-100 */
+  --color-primary: oklch(56.38% 0.115 181.73);
+  /* mc-med-teal */
+  --color-primary-content: oklch(96.47% 0.004 106.42);
+  /* zinc-100 */
+  --color-secondary: oklch(79.72% 0.058 184.77);
+  /* mc-light-teal */
+  --color-secondary-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-accent: oklch(79.41% 0.094 136.84);
+  /* mc-med-green */
+  --color-accent-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-neutral: oklch(74.71% 0.032 187.65);
+  /* mc-vlite-teal */
+  --color-neutral-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-info: oklch(79.72% 0.058 184.77);
+  /* mc-light-teal */
+  --color-info-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-success: oklch(55.52% 0.098 134.61);
+  /* mc-dark-green */
+  --color-success-content: oklch(96.47% 0.004 106.42);
+  /* zinc-100 */
+  --color-warning: oklch(74.31% 0.154 90.18);
+  /* mc-med-mustard */
+  --color-warning-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-error: oklch(61.32% 0.123 93.29);
+  /* mc-dark-mustard */
+  --color-error-content: oklch(96.47% 0.004 106.42);
+  /* zinc-100 */
+  --radius-selector: 0.25rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.21875rem;
+  --size-field: 0.21875rem;
+  --border: 1.5px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "../vendor/daisyui-theme" {
+  name: "dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(30.33% 0.016 252.42);
+  --color-base-200: oklch(25.26% 0.014 253.1);
+  --color-base-300: oklch(20.15% 0.012 254.09);
+  --color-base-content: oklch(97.807% 0.029 256.847);
+  --color-primary: oklch(58% 0.233 277.117);
+  --color-primary-content: oklch(96% 0.018 272.314);
+  --color-secondary: oklch(58% 0.233 277.117);
+  --color-secondary-content: oklch(96% 0.018 272.314);
+  --color-accent: oklch(60% 0.25 292.717);
+  --color-accent-content: oklch(96% 0.016 293.756);
+  --color-neutral: oklch(37% 0.044 257.287);
+  --color-neutral-content: oklch(98% 0.003 247.858);
+  --color-info: oklch(58% 0.158 241.966);
+  --color-info-content: oklch(97% 0.013 236.62);
+  --color-success: oklch(60% 0.118 184.704);
+  --color-success-content: oklch(98% 0.014 180.72);
+  --color-warning: oklch(66% 0.179 58.318);
+  --color-warning-content: oklch(98% 0.022 95.277);
+  --color-error: oklch(58% 0.253 17.585);
+  --color-error-content: oklch(96% 0.015 12.422);
+  --radius-selector: 0.25rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.21875rem;
+  --size-field: 0.21875rem;
+  --border: 1.5px;
+  --depth: 1;
+  --noise: 0;
+}
+
+/* Add variants based on LiveView classes */
+@custom-variant phx-click-loading (.phx-click-loading&, .phx-click-loading &);
+@custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
+@custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
+
+/* Make LiveView wrapper divs transparent for layout */
+[data-phx-session] {
+  display: contents
+}
+
+/* Background image for baseline-dark theme */
+[data-theme="baseline-dark"] {
+  background-image: url('/images/lidar_dark.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* This file is for your main application CSS */
