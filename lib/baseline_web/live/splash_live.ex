@@ -13,12 +13,12 @@ defmodule BaselineWeb.SplashLive do
       <div class="hero bg-base-200/50">
         <div class="hero-content flex-col lg:flex-row">
           <img
-          src={~p"/images/baseline.png"}
+          src={~p"/images/title_image.png"}
             class="max-w-sm rounded-lg shadow-2xl"
           />
           <div>
             <h1 class="text-5xl font-bold">Welcome to Baseline!</h1>
-            <p class="py-6">For the River Gods Amongst Us.</p>
+            <p class="py-6">Add in a Tagline</p>
             <button class="btn btn-primary">Log In</button>
           </div>
         </div>
