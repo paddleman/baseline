@@ -4,6 +4,8 @@ A Phoenix application created from the Baseline template.
 
 ## Getting Started
 
+You can copy the <code> clone_and_rename.exs </code> file and run it (examples in the file). It will clone the repository and rename the application to whatever the user specifies.
+
 To start your Phoenix server:
 
 * Install dependencies with `mix deps.get`
