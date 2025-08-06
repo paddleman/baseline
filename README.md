@@ -20,8 +20,9 @@ This application was generated from the Baseline template. Key components includ
 * **User Profiles**: Avatar uploads, profile editing with modal interface
 * **Theming**: Custom DaisyUI theme with OKLCH color support
 * **Styling**: Tailwind CSS with DaisyUI components
-* **Database**: PostgreSQL with Ecto - includes dependency geo_postgis in mix file, and custom postrex type added. User will need to create a postgis extension in the database after the DB is created --- assuming you want spatial capabilities. Also, check the :port in the config/dev file -- it is set to 5431, which is not the PostgreSQL default (5432).
+* **Database**: PostgreSQL with Ecto - includes dependency geo_postgis in mix file, and custom postrex type added. User will need to create a postgis extension in the database after the DB is created --- assuming you want spatial capabilities.
 * **Mapping Library** The app is intended to be used with a JS mapping library (MapLibre, Leaflet, OpenLayer, etc) - however none is included.
+* **Tidewave-AI Ready** Included is the tidewave-ai dependency and setup in the endpoint.ex file.
 
 ## Learn More
 
