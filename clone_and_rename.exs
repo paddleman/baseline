@@ -1,8 +1,8 @@
 #!/usr/bin/env elixir
 
-defmodule StreamlineCloner do
+defmodule baselineCloner do
   @moduledoc """
-  Script to clone the Streamline repository and rename it for use as a template.
+  Script to clone the baseline repository and rename it for use as a template.
 
   Usage:
     ./clone_and_rename.exs <new_app_name> [target_directory]
@@ -12,7 +12,7 @@ defmodule StreamlineCloner do
     ./clone_and_rename.exs "My Cool App" ./my_apps
   """
 
-  @repo_url "https://github.com/paddleman/streamline.git"
+  @repo_url "https://github.com/paddleman/baseline.git"
 
   def main(args) do
     case args do
@@ -35,7 +35,7 @@ defmodule StreamlineCloner do
     # Validate and process the app name
     {module_name, app_atom, dir_name} = process_app_name(app_name)
 
-    IO.puts("🚀 Cloning Streamline repository...")
+    IO.puts("🚀 Cloning baseline repository...")
     IO.puts("   New App Name: #{app_name}")
     IO.puts("   Module Name: #{module_name}")
     IO.puts("   App Atom: #{app_atom}")
@@ -59,7 +59,7 @@ defmodule StreamlineCloner do
     # Update README
     update_readme(full_target_path, app_name, module_name)
 
-    IO.puts("✅ Successfully created #{app_name} from Streamline template!")
+    IO.puts("✅ Successfully created #{app_name} from baseline template!")
     IO.puts("")
     IO.puts("📋 Next steps:")
     IO.puts("   1. cd #{full_target_path}")
@@ -114,26 +114,26 @@ defmodule StreamlineCloner do
     # Define the replacement mappings
     replacements = [
       # Module names
-      {"Streamline", new_module_name},
-      {"StreamlineWeb", "#{new_module_name}Web"},
+      {"baseline", new_module_name},
+      {"baselineWeb", "#{new_module_name}Web"},
 
       # App atoms and names
-      {":streamline", ":#{new_app_atom}"},
-      {"streamline", new_app_atom},
+      {":baseline", ":#{new_app_atom}"},
+      {"baseline", new_app_atom},
 
       # Database names
-      {"streamline_dev", "#{new_app_atom}_dev"},
-      {"streamline_test", "#{new_app_atom}_test"},
-      {"streamline_prod", "#{new_app_atom}_prod"},
+      {"baseline_dev", "#{new_app_atom}_dev"},
+      {"baseline_test", "#{new_app_atom}_test"},
+      {"baseline_prod", "#{new_app_atom}_prod"},
 
       # Session and cookie keys
-      {"_streamline_key", "_#{new_app_atom}_key"},
-      {"_streamline_web_user_remember_me", "_#{new_app_atom}_web_user_remember_me"},
+      {"_baseline_key", "_#{new_app_atom}_key"},
+      {"_baseline_web_user_remember_me", "_#{new_app_atom}_web_user_remember_me"},
 
       # File paths and references
-      {"streamline/", "#{new_app_atom}/"},
-      {"\"streamline\"", "\"#{new_app_atom}\""},
-      {"'streamline'", "'#{new_app_atom}'"}
+      {"baseline/", "#{new_app_atom}/"},
+      {"\"baseline\"", "\"#{new_app_atom}\""},
+      {"'baseline'", "'#{new_app_atom}'"}
     ]
 
     # Get all files to process
@@ -191,56 +191,58 @@ defmodule StreamlineCloner do
   end
 
   defp rename_directories_and_files(project_path, new_app_atom) do
-    # Rename lib/streamline.ex to lib/new_app_atom.ex
-    old_streamline_ex = Path.join(project_path, "lib/streamline.ex")
-    new_streamline_ex = Path.join(project_path, "lib/#{new_app_atom}.ex")
-    if File.exists?(old_streamline_ex) do
-      File.rename!(old_streamline_ex, new_streamline_ex)
-      IO.puts("   📄 Renamed: lib/streamline.ex -> lib/#{new_app_atom}.ex")
+    # Rename lib/baseline.ex to lib/new_app_atom.ex
+    old_baseline_ex = Path.join(project_path, "lib/baseline.ex")
+    new_baseline_ex = Path.join(project_path, "lib/#{new_app_atom}.ex")
+
+    if File.exists?(old_baseline_ex) do
+      File.rename!(old_baseline_ex, new_baseline_ex)
+      IO.puts("   📄 Renamed: lib/baseline.ex -> lib/#{new_app_atom}.ex")
     end
 
-    # Rename lib/streamline_web.ex to lib/new_app_atom_web.ex
-    old_streamline_web_ex = Path.join(project_path, "lib/streamline_web.ex")
-    new_streamline_web_ex = Path.join(project_path, "lib/#{new_app_atom}_web.ex")
-    if File.exists?(old_streamline_web_ex) do
-      File.rename!(old_streamline_web_ex, new_streamline_web_ex)
-      IO.puts("   📄 Renamed: lib/streamline_web.ex -> lib/#{new_app_atom}_web.ex")
+    # Rename lib/baseline_web.ex to lib/new_app_atom_web.ex
+    old_baseline_web_ex = Path.join(project_path, "lib/baseline_web.ex")
+    new_baseline_web_ex = Path.join(project_path, "lib/#{new_app_atom}_web.ex")
+
+    if File.exists?(old_baseline_web_ex) do
+      File.rename!(old_baseline_web_ex, new_baseline_web_ex)
+      IO.puts("   📄 Renamed: lib/baseline_web.ex -> lib/#{new_app_atom}_web.ex")
     end
 
-    # Rename lib/streamline to lib/new_app_name
-    old_lib_dir = Path.join(project_path, "lib/streamline")
+    # Rename lib/baseline to lib/new_app_name
+    old_lib_dir = Path.join(project_path, "lib/baseline")
     new_lib_dir = Path.join(project_path, "lib/#{new_app_atom}")
 
     if File.dir?(old_lib_dir) do
       File.rename!(old_lib_dir, new_lib_dir)
-      IO.puts("   📁 Renamed: lib/streamline -> lib/#{new_app_atom}")
+      IO.puts("   📁 Renamed: lib/baseline -> lib/#{new_app_atom}")
     end
 
-    # Rename lib/streamline_web to lib/new_app_name_web
-    old_web_dir = Path.join(project_path, "lib/streamline_web")
+    # Rename lib/baseline_web to lib/new_app_name_web
+    old_web_dir = Path.join(project_path, "lib/baseline_web")
     new_web_dir = Path.join(project_path, "lib/#{new_app_atom}_web")
 
     if File.dir?(old_web_dir) do
       File.rename!(old_web_dir, new_web_dir)
-      IO.puts("   📁 Renamed: lib/streamline_web -> lib/#{new_app_atom}_web")
+      IO.puts("   📁 Renamed: lib/baseline_web -> lib/#{new_app_atom}_web")
     end
 
-    # Rename test/streamline_web to test/new_app_name_web
-    old_test_web_dir = Path.join(project_path, "test/streamline_web")
+    # Rename test/baseline_web to test/new_app_name_web
+    old_test_web_dir = Path.join(project_path, "test/baseline_web")
     new_test_web_dir = Path.join(project_path, "test/#{new_app_atom}_web")
 
     if File.dir?(old_test_web_dir) do
       File.rename!(old_test_web_dir, new_test_web_dir)
-      IO.puts("   📁 Renamed: test/streamline_web -> test/#{new_app_atom}_web")
+      IO.puts("   📁 Renamed: test/baseline_web -> test/#{new_app_atom}_web")
     end
 
-    # Rename test/streamline to test/new_app_name
-    old_test_dir = Path.join(project_path, "test/streamline")
+    # Rename test/baseline to test/new_app_name
+    old_test_dir = Path.join(project_path, "test/baseline")
     new_test_dir = Path.join(project_path, "test/#{new_app_atom}")
 
     if File.dir?(old_test_dir) do
       File.rename!(old_test_dir, new_test_dir)
-      IO.puts("   📁 Renamed: test/streamline -> test/#{new_app_atom}")
+      IO.puts("   📁 Renamed: test/baseline -> test/#{new_app_atom}")
     end
   end
 
@@ -258,7 +260,7 @@ defmodule StreamlineCloner do
         # Add all files to git
         System.cmd("git", ["add", "."], cd: project_path)
 
-        System.cmd("git", ["commit", "-m", "Initial commit from Streamline template"],
+        System.cmd("git", ["commit", "-m", "Initial commit from baseline template"],
           cd: project_path
         )
 
@@ -275,7 +277,7 @@ defmodule StreamlineCloner do
     new_readme_content = """
     # #{app_name}
 
-    A Phoenix application created from the Streamline template.
+    A Phoenix application created from the baseline template.
 
     ## Getting Started
 
@@ -289,7 +291,7 @@ defmodule StreamlineCloner do
 
     ## Configuration
 
-    This application was generated from the Streamline template. Key components include:
+    This application was generated from the baseline template. Key components include:
 
     * **Authentication**: User registration, login, and session management
     * **User Profiles**: Avatar uploads, profile editing with modal interface
@@ -307,8 +309,8 @@ defmodule StreamlineCloner do
 
     ## Template Source
 
-    This application was generated from the Streamline template:
-    https://github.com/paddleman/streamline
+    This application was generated from the baseline template:
+    https://github.com/paddleman/baseline
 
     ---
 
@@ -321,7 +323,7 @@ defmodule StreamlineCloner do
 
   defp print_usage do
     IO.puts("""
-    Streamline Template Cloner
+    baseline Template Cloner
 
     Usage:
       ./clone_and_rename.exs <app_name> [target_directory]
@@ -336,7 +338,7 @@ defmodule StreamlineCloner do
       ./clone_and_rename.exs "Cool Project" ./apps
 
     The script will:
-      1. Clone the Streamline repository
+      1. Clone the baseline repository
       2. Rename all modules, configurations, and database references
       3. Update directory structure
       4. Clean git history and create fresh repository
@@ -350,4 +352,4 @@ defmodule StreamlineCloner do
 end
 
 # Run the script
-StreamlineCloner.main(System.argv())
+baselineCloner.main(System.argv())
