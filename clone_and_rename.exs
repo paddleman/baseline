@@ -1,8 +1,8 @@
 #!/usr/bin/env elixir
 
-defmodule baselineCloner do
+defmodule BaselineCloner do
   @moduledoc """
-  Script to clone the baseline repository and rename it for use as a template.
+  Script to clone the Baseline repository and rename it for use as a template.
 
   Usage:
     ./clone_and_rename.exs <new_app_name> [target_directory]
@@ -35,7 +35,7 @@ defmodule baselineCloner do
     # Validate and process the app name
     {module_name, app_atom, dir_name} = process_app_name(app_name)
 
-    IO.puts("🚀 Cloning baseline repository...")
+    IO.puts("🚀 Cloning Baseline repository...")
     IO.puts("   New App Name: #{app_name}")
     IO.puts("   Module Name: #{module_name}")
     IO.puts("   App Atom: #{app_atom}")
@@ -59,7 +59,7 @@ defmodule baselineCloner do
     # Update README
     update_readme(full_target_path, app_name, module_name)
 
-    IO.puts("✅ Successfully created #{app_name} from baseline template!")
+    IO.puts("✅ Successfully created #{app_name} from Baseline template!")
     IO.puts("")
     IO.puts("📋 Next steps:")
     IO.puts("   1. cd #{full_target_path}")
@@ -114,8 +114,8 @@ defmodule baselineCloner do
     # Define the replacement mappings
     replacements = [
       # Module names
-      {"baseline", new_module_name},
-      {"baselineWeb", "#{new_module_name}Web"},
+      {"Baseline", new_module_name},
+      {"BaselineWeb", "#{new_module_name}Web"},
 
       # App atoms and names
       {":baseline", ":#{new_app_atom}"},
@@ -260,7 +260,7 @@ defmodule baselineCloner do
         # Add all files to git
         System.cmd("git", ["add", "."], cd: project_path)
 
-        System.cmd("git", ["commit", "-m", "Initial commit from baseline template"],
+        System.cmd("git", ["commit", "-m", "Initial commit from Baseline template"],
           cd: project_path
         )
 
@@ -277,7 +277,7 @@ defmodule baselineCloner do
     new_readme_content = """
     # #{app_name}
 
-    A Phoenix application created from the baseline template.
+    A Phoenix application created from the Baseline template.
 
     ## Getting Started
 
@@ -291,7 +291,7 @@ defmodule baselineCloner do
 
     ## Configuration
 
-    This application was generated from the baseline template. Key components include:
+    This application was generated from the Baseline template. Key components include:
 
     * **Authentication**: User registration, login, and session management
     * **User Profiles**: Avatar uploads, profile editing with modal interface
@@ -309,7 +309,7 @@ defmodule baselineCloner do
 
     ## Template Source
 
-    This application was generated from the baseline template:
+    This application was generated from the Baseline template:
     https://github.com/paddleman/baseline
 
     ---
@@ -323,7 +323,7 @@ defmodule baselineCloner do
 
   defp print_usage do
     IO.puts("""
-    baseline Template Cloner
+    Baseline Template Cloner
 
     Usage:
       ./clone_and_rename.exs <app_name> [target_directory]
@@ -338,7 +338,7 @@ defmodule baselineCloner do
       ./clone_and_rename.exs "Cool Project" ./apps
 
     The script will:
-      1. Clone the baseline repository
+      1. Clone the Baseline repository
       2. Rename all modules, configurations, and database references
       3. Update directory structure
       4. Clean git history and create fresh repository
@@ -352,4 +352,4 @@ defmodule baselineCloner do
 end
 
 # Run the script
-baselineCloner.main(System.argv())
+BaselineCloner.main(System.argv())
