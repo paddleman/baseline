@@ -10,10 +10,10 @@ defmodule BaselineWeb.SplashLive do
   def render(assigns) do
     ~H"""
     <Layouts.splash_app flash={@flash}>
-      <div class="hero bg-base-200/50">
+      <div class="hero bg-base-200/50 w-fit mx-auto">
         <div class="hero-content flex-col lg:flex-row">
           <img
-          src={~p"/images/title_image.png"}
+            src={~p"/images/title_image.png"}
             class="max-w-sm rounded-lg shadow-2xl"
           />
           <div>

@@ -20,7 +20,7 @@ defmodule BaselineWeb.Router do
   scope "/", BaselineWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", SplashLive
   end
 
   # Other scopes may use custom stacks.
@@ -55,6 +55,8 @@ defmodule BaselineWeb.Router do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
       live "/users/profile", UserLive.Profile, :index
+
+      live "/baseline", HomeLive
     end
 
     post "/users/update-password", UserSessionController, :update_password

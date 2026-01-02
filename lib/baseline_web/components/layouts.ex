@@ -67,8 +67,7 @@ defmodule BaselineWeb.Layouts do
 
       <Layouts.main_app flash={@flash}>
         <h1>Content</h1>
-      </Layout.app>
-
+      </Layouts.main_app>
   """
   attr :flash, :map, required: true, doc: "the map of flash messages"
 
@@ -76,42 +75,44 @@ defmodule BaselineWeb.Layouts do
     default: nil,
     doc: "the current [scope](https://hexdocs.pm/phoenix/scopes.html)"
 
+  attr :service_areas, :list, default: [], doc: "list of service areas for dropdown"
+  attr :selected_service_area, :map, default: nil, doc: "currently selected service area"
+
   slot :inner_block, required: true
 
   def main_app(assigns) do
     ~H"""
     <header class="navbar px-2 border-b">
       <div class="flex-1">
-        <a href="/baseline" class="flex-1 flex w-fit items-center gap-2">
+        <a href="/baseline" class="flex w-fit items-center gap-2">
           <img src={~p"/images/mcelhanney-logo.png"} class="h-6" />
           <span class="text-sm font-semibold">v{Application.spec(:phoenix, :vsn)}</span>
         </a>
       </div>
-      <div class="flex-none">
-        <ul class="flex flex-column px-1 space-x-4 items-center">
-          <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-              <div class="w-12 rounded-full">
-                <img alt="User Avatar" src={@current_scope.user.avatar_url} />
-              </div>
-            </div>
-            <ul
-              tabindex="0"
-              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <.link href={~p"/users/profile"}>Profile</.link>
-              </li>
 
-              <li>
-                <.link href={~p"/users/settings"}>Settings</.link>
-              </li>
-              <li>
-                <.link href={~p"/users/log-out"} method="delete">Log out</.link>
-              </li>
-            </ul>
+      <%!-- User Avatar Dropdown --%>
+      <div class="flex-1 flex justify-end">
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+            <div class="w-8 rounded-full">
+              <img alt="User Avatar" src={@current_scope.user.avatar_url} />
+            </div>
           </div>
-        </ul>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow-lg"
+          >
+            <li>
+              <.link href={~p"/users/profile"}>Profile</.link>
+            </li>
+            <li>
+              <.link href={~p"/users/settings"}>Settings</.link>
+            </li>
+            <li>
+              <.link href={~p"/users/log-out"} method="delete">Log out</.link>
+            </li>
+          </ul>
+        </div>
       </div>
     </header>
 
